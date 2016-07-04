@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="/assignment/website/website-list.html" class="navbar-link">
+                <a ng-click="model.back()" class="navbar-link">
                     <span class="glyphicon glyphicon-chevron-left">
                     </span>
                 </a>
@@ -11,7 +11,7 @@
                 Pages
             </a>
             <p class="navbar-text pull-right">
-                <a href="/assignment/page/page-new.html" class="navbar-link">
+                <a ng-click="model.newPage()" class="navbar-link">
                     <span class="glyphicon glyphicon-plus">
                     </span>
                 </a>
@@ -24,61 +24,19 @@
 <div class="container">
 
     <ul class="list-group">
-        <li class="list-group-item">
-            <a href="/assignment/widget/widget-list.html">
-                Blog Post
+
+        <li ng-repeat="page in model.pages" class="list-group-item">
+            <a ng-click="model.openPage(page)">
+                {{page.name}}
             </a>
             <p class=" pull-right">
-                <a href="/assignment/page/page-edit.html">
+                <a ng-click="model.editPage(page)">
                     <span class="glyphicon glyphicon-cog">
                     </span>
                 </a>
             </p>
         </li>
-        <li class="list-group-item">
-            <a href="/assignment/widget/widget-list.html">
-                Blogs
-            </a>
-            <p class=" pull-right">
-                <a href="/assignment/page/page-edit.html">
-                    <span class="glyphicon glyphicon-cog">
-                    </span>
-                </a>
-            </p>
-        </li>
-        <li class="list-group-item">
-            <a href="/assignment/widget/widget-list.html">
-                Home
-            </a>
-            <p class=" pull-right">
-                <a href="/assignment/page/page-edit.html">
-                    <span class="glyphicon glyphicon-cog">
-                    </span>
-                </a>
-            </p>
-        </li>
-        <li class="list-group-item">
-            <a href="/assignment/widget/widget-list.html">
-                About
-            </a>
-            <p class=" pull-right">
-                <a href="/assignment/page/page-edit.html">
-                    <span class="glyphicon glyphicon-cog">
-                    </span>
-                </a>
-            </p>
-        </li>
-        <li class="list-group-item">
-            <a href="/assignment/widget/widget-list.html">
-                Contact Us
-            </a>
-            <p class=" pull-right">
-                <a href="/assignment/page/page-edit.html">
-                    <span class="glyphicon glyphicon-cog">
-                    </span>
-                </a>
-            </p>
-        </li>
+
     </ul>
 
 </div>
@@ -102,7 +60,7 @@
                 </a>
             </div>
             <div class="col-xs-3 text-center">
-                <a href="/assignment/user/profile.html">
+                <a ng-click="model.profile()">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>

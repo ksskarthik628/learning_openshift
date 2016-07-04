@@ -5,7 +5,7 @@
                 Websites
             </a>
             <p class="navbar-text pull-right">
-                <a href="/assignment/website/website-new.html" class="navbar-link">
+                <a ng-click="model.newWebsite()" class="navbar-link">
                     <span class="glyphicon glyphicon-plus">
                     </span>
                 </a>
@@ -18,12 +18,13 @@
 <div class="container">
 
     <ul class="list-group">
-        <li class="list-group-item">
-            <a href="/assignment/page/page-list.html">
-                Blogging App
+
+        <li ng-repeat="website in model.websites" class="list-group-item">
+            <a ng-click="model.openWebsite(website)">
+                {{website.name}}
             </a>
             <p class=" pull-right">
-                <a href="/assignment/website/website-edit.html">
+                <a ng-click="model.editWebsite(website)">
                     <span class="glyphicon glyphicon-cog">
                     </span>
                     <span class="glyphicon glyphicon-triangle-right">
@@ -31,45 +32,7 @@
                 </a>
             </p>
         </li>
-        <li class="list-group-item">
-            <a href="/assignment/page/page-list.html">
-                Address Book App
-            </a>
-            <p class=" pull-right">
-                <a href="/assignment/website/website-edit.html">
-                    <span class="glyphicon glyphicon-cog">
-                    </span>
-                    <span class="glyphicon glyphicon-triangle-right">
-                    </span>
-                </a>
-            </p>
-        </li>
-        <li class="list-group-item">
-            <a href="/assignment/page/page-list.html">
-                Script Testing App
-            </a>
-            <p class=" pull-right">
-                <a href="/assignment/website/website-edit.html">
-                        <span class="glyphicon glyphicon-cog">
-                        </span>
-                        <span class="glyphicon glyphicon-triangle-right">
-                        </span>
-                </a>
-            </p>
-        </li>
-        <li class="list-group-item">
-            <a href="/assignment/page/page-list.html">
-                Blogger
-            </a>
-            <p class=" pull-right">
-                <a href="/assignment/website/website-edit.html">
-                        <span class="glyphicon glyphicon-cog">
-                        </span>
-                        <span class="glyphicon glyphicon-triangle-right">
-                        </span>
-                </a>
-            </p>
-        </li>
+
     </ul>
 
 </div>
@@ -93,7 +56,7 @@
                 </a>
             </div>
             <div class="col-xs-3 text-center">
-                <a href="/assignment/user/profile.html">
+                <a ng-click="model.profile()">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>

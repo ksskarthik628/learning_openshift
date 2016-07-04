@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="/assignment/page/page-list.html" class="navbar-link">
+                <a ng-click="model.back()" class="navbar-link">
                     <span class="glyphicon glyphicon-chevron-left">
                     </span>
                 </a>
@@ -11,7 +11,7 @@
                 Widgets
             </a>
             <p class="navbar-text pull-right">
-                <a href="/assignment/widget/widget-chooser.html" class="navbar-link">
+                <a ng-click="model.newWidget()" class="navbar-link">
                     <span class="glyphicon glyphicon-plus">
                     </span>
                 </a>
@@ -23,74 +23,35 @@
 
 <div class="container">
 
-    <div class="widget-class">
+    <div ng-repeat="widget in model.widgets" class="widget-class">
         <div class="widget-edit">
-            <a href="/assignment/widget/widget-heading.html">
+            <a ng-click="model.editWidget(widget)">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
-        <h1>GIZMODO</h1>
-    </div>
+        <div ng-switch="widget.widgetType">
+            <div ng-switch-when="HEADER" ng-switch="widget.size">
+                <h1 ng-switch-when="1">{{widget.text}}</h1>
+                <h2 ng-switch-when="2">{{widget.text}}</h2>
+                <h3 ng-switch-when="3">{{widget.text}}</h3>
+                <h4 ng-switch-when="4">{{widget.text}}</h4>
+                <h5 ng-switch-when="5">{{widget.text}}</h5>
+                <h6 ng-switch-when="6">{{widget.text}}</h6>
+            </div>
 
-    <div class="widget-class">
-        <div class="widget-edit">
-            <a href="/assignment/widget/widget-heading.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h4>Which Superhero Is Best? Research Says Definitely Not Batman</h4>
-    </div>
+            <div ng-switch-when="HTML">
+                <div ng-bind-html="model.getSafeHtml(widget)"></div>
+            </div>
 
-    <div class="widget-class">
-        <div class="widget-edit">
-            <a href="/assignment/widget/widget-image.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <img width="100%" src="http://fractals.erucolindo3.com/images/julian-bubble.jpg">
-    </div>
+            <div ng-switch-when="IMAGE">
+                <img width="{{widget.width}}" ng-src="{{widget.url}}">
+            </div>
 
-    <div class="widget-class">
-        <div class="widget-edit">
-            <a href="#">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
+            <div ng-switch-when="YOUTUBE">
+                <iframe width="{{widget.width}}" ng-src="{{model.getSafeUrl(widget)}}" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
-        <p class="first-text">It’s kind of impossible to say which superhero is the best, since there’s just too many of them to count, but a seven-year study at the <a href="http://www2.le.ac.uk/offices/press/press-releases/2016/june/who2019s-the-best-equipped-superhero-student-research-settles-2018superpower-showdown2019" rel="noopener" target="_blank">University of Leicester</a> purports to help shine a light on the debate.<br></p>
-    </div>
-
-    <div class="widget-class">
-        <div class="widget-edit">
-            <a href="/assignment/widget/widget-heading.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h4>Texas Man Buys Dam Online To Protect Home From Flooding, And It Worked</h4>
-    </div>
-
-    <div class="widget-class">
-        <div class="widget-edit">
-            <a href="/assignment/widget/widget-youtube.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <iframe width="100%" src="https://www.youtube.com/embed/GdpKs8zzaZU" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <div class="widget-class">
-        <div class="widget-edit">
-            <a href="#">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p class="first-text">As thousands were evacuated across multiple counties in Texas due to horrible flooding, one man and his family are living high and dry thanks to something he bought on the internet.<br></p>
     </div>
 
 </div>
@@ -119,7 +80,7 @@
                 </a>
             </div>
             <div class="col-xs-3 text-center">
-                <a href="/assignment/user/profile.html">
+                <a ng-click="model.profile()">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>

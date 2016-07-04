@@ -15,11 +15,11 @@
             ];
 
         var api = {
-            "createWebsite": "createWebsite",
-            "findWebsitesByUser": "findWebsitesByUser",
-            "findWebsiteById": "findWebsiteById",
-            "updateWebsite": "updateWebsite",
-            "deleteWebsite": "deleteWebsite"
+            createWebsite: createWebsite,
+            findWebsitesByUser: findWebsitesByUser,
+            findWebsiteById: findWebsiteById,
+            updateWebsite: updateWebsite,
+            deleteWebsite: deleteWebsite
         };
         return api;
 
@@ -35,12 +35,13 @@
         }
 
         function findWebsitesByUser(userId) {
+            var results = [];
             for (var i in websites) {
                 if (websites[i].developerId === userId) {
-                    return websites[i];
+                    results.push(websites[i]);
                 }
             }
-            return null;
+            return results;
         }
 
         function findWebsiteById(websiteId) {

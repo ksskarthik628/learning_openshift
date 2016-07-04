@@ -18,11 +18,11 @@
         ];
 
         var api = {
-            "createWidget": "createWidget",
-            "findWidgetsByPageId": "findWidgetsByPageId",
-            "findWidgetById": "findWidgetById",
-            "updateWidget": "updateWidget",
-            "deleteWidget": "deleteWidget"
+            createWidget: createWidget,
+            findWidgetsByPageId: findWidgetsByPageId,
+            findWidgetById: findWidgetById,
+            updateWidget: updateWidget,
+            deleteWidget: deleteWidget
         };
         return api;
 
@@ -31,22 +31,23 @@
                 "_id": (new Date()).getTime() + "",
                 "widgetType": widget.widgetType,
                 "pageId": pageId,
-                "size": widget.size,
-                "text": widget.text,
-                "url": widget.url,
-                "width": widget.width
+                "size": "",
+                "text": "",
+                "url": "",
+                "width": ""
             };
             widgets.push(newWidget);
             return newWidget;
         }
 
         function findWidgetsByPageId(pageId) {
+            var results = [];
             for (var i in widgets) {
                 if (widgets[i].pageId === pageId) {
-                    return widgets[i];
+                    results.push(widgets[i]);
                 }
             }
-            return null;
+            return results;
         }
 
         function findWidgetById(widgetId) {

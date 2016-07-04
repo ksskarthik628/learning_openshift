@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <p class="navbar-text pull-left">
-                <a href="/assignment/widget/widget-list.html" class="navbar-link">
+                <a ng-click="model.back()" class="navbar-link">
                     <span class="glyphicon glyphicon-chevron-left">
                     </span>
                 </a>
@@ -11,7 +11,7 @@
                 Widget Edit
             </a>
             <p class="navbar-text pull-right">
-                <a href="/assignment/widget/widget-list.html" class="navbar-link">
+                <a ng-click="model.updateWidget(model.widget)" class="navbar-link">
                     <span class="glyphicon glyphicon-ok">
                     </span>
                 </a>
@@ -26,20 +26,32 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name">
+            <input ng-model="model.widget.name"
+                   type="text"
+                   class="form-control"
+                   id="name"
+                   value="{{model.widget.name}}">
         </div>
         <div class="form-group">
             <label for="text">Text</label>
-            <input type="text" class="form-control" id="text" value="Which Superhero Is Best? Research Says Definitely Not Batman">
+            <input ng-model="model.widget.text"
+                   type="text"
+                   class="form-control"
+                   id="text"
+                   value="{{model.widget.text}}">
         </div>
         <div class="form-group">
             <label for="size">Size</label>
-            <input type="number" class="form-control" id="size" value="4">
+            <input ng-model="model.widget.size"
+                   type="number"
+                   class="form-control"
+                   id="size"
+                   value="{{model.widget.size}}">
         </div>
 
     </form>
     <a class="btn btn-danger btn-block"
-       href="/assignment/widget/widget-list.html">Delete</a>
+       ng-click="model.deleteWidget()">Delete</a>
 
 </div>
 
@@ -62,7 +74,7 @@
                 </a>
             </div>
             <div class="col-xs-3 text-center">
-                <a href="/assignment/user/profile.html">
+                <a ng-click="model.profile()">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
             </div>
