@@ -11,12 +11,16 @@
         vm.register = register;
 
         function login(user) {
-            user = UserService.findUserByCredentials(user.username, user.password);
-            if (user) {
-                $location.url("/user/" + user._id);
-            } else {
-                vm.alert = "Unable to login";
-            }
+            UserService
+                .findUserByCredentials(user.username, user.password)
+                .then(function (response) {
+                    var user = response.data;
+                    if (user) {
+                        $location.url("/user/" + user._id);
+                    } else {
+                        vm.alert = "Unable to login";
+                    }
+                });
         }
 
         function register() {
@@ -50,6 +54,7 @@
         vm.website = website;
         vm.logout = logout;
         vm.profile = profile;
+        vm.dismiss = dismiss;
 
         function init() {
             vm.user = UserService.findUserById(vm.userId);
@@ -72,8 +77,14 @@
         function logout() {
             $location.url("/login");
         }
+
         function profile() {
             $location.url("/user/" + vm.userId);
+        }
+
+        function dismiss() {
+            vm.success = "";
+            vm.alert = "";
         }
     }
 })();
