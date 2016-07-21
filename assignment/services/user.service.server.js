@@ -53,7 +53,7 @@ module.exports = function (app) {
     }
     
     function findUserById(req, res) {
-        var userId = req.param['uid'];
+        var userId = req.params['uid'];
         for (var i in users) {
             if (users[i]._id === userId) {
                 res.json(users[i]);
@@ -61,6 +61,32 @@ module.exports = function (app) {
             }
         }
         res.json({});
+    }
+
+    function updateUser(req, res) {
+        var userId = req.params['uid'];
+        var user = req.body;
+        for (var i in users) {
+            if (users[i]._id === userId) {
+                users[i].firstName = user.firstName;
+                users[i].lastName = user.lastName;
+                res.send(200);
+                return;
+            }
+        }
+        res.status(400);
+    }
+    
+    function deleteUser(req, res) {
+        var userId = req.params['uid'];
+        for (var i in users) {
+            if (users[i]._id === userId) {
+                users.splice(i, 1);
+                res.send(200);
+                return;
+            }
+        }
+        res.send(400);
     }
 
 };
