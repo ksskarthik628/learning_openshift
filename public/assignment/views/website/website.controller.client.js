@@ -14,7 +14,11 @@
         vm.profile = profile;
 
         function init() {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+            WebsiteService
+                .findWebsitesByUser(vm.userId)
+                .then(function (response) {
+                    vm.websites = response.data;
+                });
         }
         init();
 
@@ -41,23 +45,32 @@
         vm.back = back;
         vm.createWebsite = createWebsite;
         vm.profile = profile;
+        vm.dismiss = dismiss;
         
         function back() {
             $location.url("/user/" + vm.userId + "/website");
         }
         
         function createWebsite(website) {
-            website = WebsiteService.createWebsite(vm.userId, website);
-            if (website) {
-                vm.success = "Website created";
-                $location.url("/user/" + vm.userId + "/website");
-            } else {
-                vm.alert = "Unable to create website";
-            }
+            WebsiteService
+                .createWebsite(vm.userId, website)
+                .then(function (response) {
+                    website = response.data;
+                    if (website._id) {
+                        vm.success = "Website created";
+                        $location.url("/user/" + vm.userId + "/website");
+                    } else {
+                        vm.alert = "Unable to create website";
+                    }
+                });
         }
 
         function profile() {
             $location.url("/user/" + vm.userId);
+        }
+        
+        function dismiss() {
+            vm.alert = "";
         }
     }
 
@@ -69,30 +82,37 @@
         vm.deleteWebsite = deleteWebsite;
         vm.back = back;
         vm.profile = profile;
+        vm.dismiss = dismiss;
         
         function init() {
-            vm.website = WebsiteService.findWebsiteById(vm.websiteId);
+            WebsiteService
+                .findWebsiteById(vm.websiteId)
+                .then(function (response) {
+                    vm.website = response.data;
+                });
         }
         init();
         
         function updateWebsite(website) {
-            website = WebsiteService.updateWebsite(vm.websiteId, website);
-            if (website) {
-                vm.success = "Website Updated";
-                $location.url("/user/" + vm.userId + "/website");
-            } else {
-                vm.alert = "Unable to update website";
-            }
+            WebsiteService
+                .updateWebsite(vm.websiteId, website)
+                .then(function (response) {
+                        vm.success = "Website Updated";
+                        $location.url("/user/" + vm.userId + "/website");
+                }, function (response) {
+                    vm.alert = "Unable to update website";
+                });
         }
 
         function deleteWebsite() {
-            var response = WebsiteService.deleteWebsite(vm.websiteId);
-            if (response) {
-                vm.success = "Website deleted";
-                $location.url("/user/" + vm.userId + "/website");
-            } else {
-                vm.alert = "Unable to delete website";
-            }
+            WebsiteService
+                .deleteWebsite(vm.websiteId)
+                .then(function (response) {
+                    vm.success = "Website deleted";
+                    $location.url("/user/" + vm.userId + "/website");
+                }, function (response) {
+                    vm.alert = "Unable to delete website";
+                });
         }
 
         function back() {
@@ -101,6 +121,10 @@
 
         function profile() {
             $location.url("/user/" + vm.userId);
+        }
+
+        function dismiss() {
+            vm.alert = "";
         }
     }
 })();
