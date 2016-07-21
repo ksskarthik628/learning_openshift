@@ -30,7 +30,6 @@ module.exports = function (app) {
 
     function findAllWebsitesForUser(req, res) {
         var userId = req.params['uid'];
-        console.log(userId);
         var results = [];
         for (var i in websites) {
             if (websites[i].developerId === userId) {
