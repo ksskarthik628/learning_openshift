@@ -18,7 +18,11 @@
         vm.profile = profile;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            WidgetService
+                .findWidgetsByPageId(vm.pageId)
+                .then(function (response) {
+                    vm.widgets = response.data;
+                });
         }
         init();
 
@@ -58,6 +62,7 @@
         vm.back = back;
         vm.createWidget = createWidget;
         vm.profile = profile;
+        vm.dismiss = dismiss;
 
         function back() {
             $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
@@ -66,17 +71,25 @@
         function createWidget(widgetType) {
             var widget = {};
             widget.widgetType = widgetType;
-            widget = WidgetService.createWidget(vm.pageId, widget);
-            if (widget) {
-                vm.success = "Widget Created";
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widget._id);
-            } else {
-                vm.alert = "Unable to create Widget";
-            }
+            WidgetService
+                .createWidget(vm.pageId, widget)
+                .then(function (response) {
+                    var widget = response.data;
+                    if (widget._id) {
+                        vm.success = "Widget Created";
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widget._id);
+                    } else {
+                        vm.alert = "Unable to create Widget";
+                    }
+                });
         }
 
         function profile() {
             $location.url("/user/" + vm.userId);
+        }
+
+        function dismiss() {
+            vm.alert = "";
         }
     }
 
@@ -90,32 +103,38 @@
         vm.deleteWidget = deleteWidget;
         vm.profile = profile;
         vm.back = back;
+        vm.dismiss = dismiss;
 
         function init() {
-            vm.widget = WidgetService.findWidgetById(vm.widgetId);
+            WidgetService
+                .findWidgetById(vm.widgetId)
+                .then(function (response) {
+                    vm.widget = response.data;
+                });
         }
         init();
 
         function updateWidget(widget) {
 
-            widget = WidgetService.updateWidget(vm.widgetId, widget);
-            if (widget) {
-                vm.success = "Widget updated";
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            } else {
-                vm.alert = "Unable to update Widget";
-                console.log("errrororororor");
-            }
+            WidgetService
+                .updateWidget(vm.widgetId, widget)
+                .then(function (response) {
+                    vm.success = "Widget updated";
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                }, function (response) {
+                    vm.alert = "Unable to update Widget";
+                });
         }
 
         function deleteWidget() {
-            var response = WidgetService.deleteWidget(vm.widgetId);
-            if (response) {
-                vm.success = "Widget deleted";
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            } else {
-                vm.alert = "Unable to delete widget";
-            }
+            WidgetService
+                .deleteWidget(vm.widgetId)
+                .then(function (response) {
+                    vm.success = "Widget deleted";
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                }, function (response) {
+                    vm.alert = "Unable to delete widget";
+                });
         }
 
         function back() {
@@ -124,6 +143,10 @@
         
         function profile() {
             $location.url("/user/" + vm.userId);
+        }
+
+        function dismiss() {
+            vm.alert = "";
         }
     }
 })();
