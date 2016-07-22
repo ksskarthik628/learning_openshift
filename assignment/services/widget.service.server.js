@@ -14,6 +14,7 @@ module.exports = function (app) {
 
     app.post("/api/page/:pid/widget", createWidget);
     app.get("/api/page/:pid/widget", findAllWidgetsForPage);
+    app.put("/api/page/:pid/widget", reorderWidgetsForPage);
     app.get("/api/widget/:wgid", findWidgetById);
     app.put("/api/widget/:wgid", updateWidget);
     app.delete("/api/widget/:wgid", deleteWidget);
@@ -43,6 +44,10 @@ module.exports = function (app) {
             }
         }
         res.json(results);
+    }
+
+    function reorderWidgetsForPage(req, res) {
+
     }
 
     function findWidgetById(req, res) {
