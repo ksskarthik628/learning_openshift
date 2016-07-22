@@ -3,7 +3,7 @@
         .module("WamDirectives", [])
         .directive("wamSortable", WamSortable);
 
-    function WamSortable($http) {
+    function WamSortable() {
 
         function link(scope, element, attributes) {
 
