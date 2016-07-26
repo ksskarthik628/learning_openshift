@@ -1,0 +1,69 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a ng-click="model.back()" class="navbar-link">
+                    <span class="glyphicon glyphicon-chevron-left">
+                    </span>
+                </a>
+            </p>
+            <a class="navbar-brand" href="#">
+                Search Flickr
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+
+    <div ng-if="model.alert" class="alert alert-danger alert-dismissible" role="alert">
+        <button ng-click="model.dismiss()" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Failure!</strong> {{model.alert}}
+    </div>
+
+    <div class="input-group">
+        <input ng-model="searchText" type="text" class="form-control"/>
+        <span class="input-group-btn">
+            <a ng-click="model.searchPhotos(searchText)" class="btn btn-default" type="button">
+                <span class="glyphicon glyphicon-search"></span>
+            </a>
+        </span>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4" ng-repeat="photo in model.photos.photo">
+            <img ng-click="model.selectPhoto(photo)"
+                 ng-src="https://farm{{photo.farm}}.staticflickr.com/
+             {{photo.server}}/{{photo.id}}_{{photo.secret}}_s.jpg"/>
+        </div>
+    </div>
+
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <div class="row navbar-text">
+            <div class="col-xs-3 text-center">
+                <a href="#">
+                    <!--<span class="glyphicon glyphicon-share-alt"></span>-->
+                </a>
+            </div>
+            <div class="col-xs-3 text-center">
+                <a href="#">
+                    <!--<span class="glyphicon glyphicon-plus"></span>-->
+                </a>
+            </div>
+            <div class="col-xs-3 text-center">
+                <a href="#">
+                    <!--<span class="glyphicon glyphicon-star"></span>-->
+                </a>
+            </div>
+            <div class="col-xs-3 text-center">
+                <a ng-click="model.profile()">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

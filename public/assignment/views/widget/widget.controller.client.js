@@ -109,6 +109,7 @@
         vm.back = back;
         vm.dismiss = dismiss;
         vm.url = url;
+        vm.searchFlickr = searchFlickr;
 
         function init() {
             WidgetService
@@ -155,7 +156,11 @@
         }
         
         function url() {
-            return  "/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + vm.widgetId
+            return  "/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + vm.widgetId;
+        }
+
+        function searchFlickr() {
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + vm.widgetId + "/search");
         }
     }
 })();
