@@ -108,6 +108,7 @@
         vm.profile = profile;
         vm.back = back;
         vm.dismiss = dismiss;
+        vm.url = url;
 
         function init() {
             WidgetService
@@ -151,6 +152,10 @@
 
         function dismiss() {
             vm.alert = "";
+        }
+        
+        function url() {
+            return  "/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + vm.widgetId
         }
     }
 })();
