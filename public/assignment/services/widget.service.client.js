@@ -9,6 +9,7 @@
             createWidget: createWidget,
             findWidgetsByPageId: findWidgetsByPageId,
             findWidgetById: findWidgetById,
+            reorderWidget: reorderWidget,
             updateWidget: updateWidget,
             deleteWidget: deleteWidget
         };
@@ -27,6 +28,11 @@
         function findWidgetById(widgetId) {
             var url = "/api/widget/" + widgetId;
             return $http.get(url);
+        }
+
+        function reorderWidget(pageId, start, end) {
+            var url = "/api/page/" + pageId + "/widget?start=" + start + "&end=" + end;
+            return $http.put(url);
         }
 
         function updateWidget(widgetId, widget) {

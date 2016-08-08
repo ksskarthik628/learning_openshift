@@ -16,16 +16,14 @@
         vm.getSafeHtml = getSafeHtml;
         vm.getSafeUrl = getSafeUrl;
         vm.profile = profile;
+        vm.reorderWidget = reorderWidget;
+        vm.dismiss = dismiss;
 
         function init() {
             WidgetService
                 .findWidgetsByPageId(vm.pageId)
                 .then(function (response) {
                     vm.widgets = response.data;
-                    $(".container")
-                        .sortable({
-                            axis: "y"
-                        });
                 });
         }
         init();
@@ -55,6 +53,18 @@
 
         function profile() {
             $location.url("/user/" + vm.userId);
+        }
+
+        function reorderWidget(start, end) {
+            WidgetService
+                .reorderWidget(vm.pageId, start, end)
+                .then(init, function () {
+                    vm.alert = "Error occurred while reordering widgets";
+                });
+        }
+
+        function dismiss() {
+            vm.alert = "";
         }
     }
 

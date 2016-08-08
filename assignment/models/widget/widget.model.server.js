@@ -40,7 +40,23 @@ module.exports = function () {
     }
     
     function deleteWidget(widgetId) {
-        return Widget.remove({_id: widgetId});
+        return Widget.findOne({_id: widgetId}, function(err, widget) {
+            var order = widget.order;
+            var pageId = widget._page;
+
+            Widget
+                .find({_page: pageId},
+                    function (err, widgets) {
+                        widgets.forEach(function (widget) {
+                            if (widget.order > order) {
+                                widget.order--;
+                                widget.save(function() {});
+                            } else if (widget.order === order) {
+                                widget.remove();
+                            }
+                        })
+                    });
+        });
     }
     
     function reorderWidget(pageId, start, end) {
