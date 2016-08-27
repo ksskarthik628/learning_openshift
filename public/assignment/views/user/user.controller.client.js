@@ -5,7 +5,7 @@
         .controller("RegisterController", RegisterController)
         .controller("ProfileController", ProfileController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, $rootScope, UserService) {
         var vm = this;
         vm.login = login;
         vm.register = register;
@@ -13,10 +13,11 @@
 
         function login(user) {
             UserService
-                .findUserByCredentials(user.username, user.password)
+                .login(user)
                 .then(function (response) {
                     var user = response.data;
                     if (user._id) {
+                        $rootScope.currentUser = user;
                         $location.url("/user/" + user._id);
                     } else {
                         vm.alert = "Unable to login";
@@ -33,7 +34,7 @@
         }
     }
     
-    function RegisterController($location, UserService) {
+    function RegisterController($location, $rootScope, UserService) {
         var vm = this;
         vm.register = register;
         vm.cancel = cancel;
@@ -42,10 +43,11 @@
         function register(user) {
             if (user.password === user.verifyPassword) {
                 UserService
-                    .createUser(user)
+                    .register(user)
                     .then(function (response) {
                         var user = response.data;
                         if (user) {
+                            $rootScope.currentUser = user;
                             $location.url("/user/" + user._id);
                         } else {
                             vm.alert = "Unable to register";
@@ -65,9 +67,9 @@
         }
     }
     
-    function ProfileController($location, $routeParams, UserService) {
+    function ProfileController($location, $routeParams, $rootScope, UserService) {
         var vm = this;
-        vm.userId = $routeParams["uid"];
+        vm.userId = $rootScope.currentUser._id;
         vm.updateUser = updateUser;
         vm.website = website;
         vm.logout = logout;
@@ -98,7 +100,12 @@
         }
 
         function logout() {
-            $location.url("/login");
+            UserService
+                .logout()
+                .then(function (response) {
+                    $rootScope.currentUser = null;
+                    $location.url("/login");
+                });
         }
 
         function profile() {
